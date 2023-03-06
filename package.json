@@ -1,0 +1,19 @@
+{
+  "name": "ckexpressTest",
+  "version": "1.0.0",
+  "description": "CKs Express Test on Render",
+  "main": "expres.js",
+  "repository": "https://github.com/render-examples/express-hello-world",
+  "author": "mod Render Developers",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node expres.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}
