@@ -8,6 +8,12 @@ app.get('/hihi', function(req, res){
    next();
 });
 
+//First middleware before response is sent
+app.get('/somereq/:id([0-9]{5})', function(req, res){
+   res.send('id: ' + req.params.id);
+   next();
+});
+
 
 //First middleware before response is sent
 app.use(function(req, res, next){
@@ -27,11 +33,6 @@ app.get('/hello', function(req, res, next){
    next();
 });
 
-//First middleware before response is sent
-app.get('/somereq/:id([0-9]{5})', function(req, res, next){
-   res.send('id: ' + req.params.id);
-   next();
-});
 
 
 app.get('/', function(req, res){
