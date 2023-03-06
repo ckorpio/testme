@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "CKs Express Test on Render",
   "main": "expres.js",
-  "repository": "https://github.com/render-examples/express-hello-world",
+  "repository": "https://github.com/ckorpio/testme",
   "author": "mod Render Developers",
   "license": "MIT",
   "private": false,
