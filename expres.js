@@ -11,7 +11,7 @@ app.get('/hihi', function(req, res){
 
 //First middleware before response is sent
 app.use(function(req, res, next){
-   console.log("Start");
+   res.send("Start");
    next();
 });
 
@@ -29,12 +29,12 @@ app.get('/hello', function(req, res, next){
 
 //First middleware before response is sent
 app.use('/somereq/:id([0-9]{5})', function(req, res, next){
-   console.log("Start");
+   res.send('id: ' + req.params.id);
    next();
 });
 
 app.use('/', function(req, res){
-   console.log('End');
+   res.send('End');
 });
 
 app.listen(4000);
