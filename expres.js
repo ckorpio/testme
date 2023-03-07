@@ -5,13 +5,13 @@ var app = express();
 //Route handler
 app.get('/hihi', function(req, res){
    res.send("Hihi there");
-   next();
+//   next();
 });
 
 //First middleware before response is sent
 app.get('/somereq/:id([0-9]{5})', function(req, res){
    res.send('id: ' + req.params.id);
-   next();
+//   next();
 });
 
 
