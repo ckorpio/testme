@@ -1,12 +1,12 @@
 const express = require('express');
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = 3000;
 
 
 // ------>>>Step 5.1
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 // ------<<<Step 5.1
 
 
@@ -14,12 +14,15 @@ app.use(express.urlencoded({ extended: true }));
 
 
 // ------Step 2
-
+var url = require('url');
 app.get('/api/users', function(req, res) {
+  var qu = url.parse(req.url, true).query;
+  const evry = req.query;
   const user_id = req.query.id;
   const token = req.query.token;
   const geo = req.query.geo;
 
+  res.send(evry + ' - ' + qu);
   res.send({
     'user_id': user_id,
     'token': token,
