@@ -11,6 +11,19 @@ const port = 3000;
 app.listen(port);
 console.log('Server started at http://localhost:' + port);
 
+//---->>> From Mongo about usig with Node
+const { MongoClient, ServerApiVersion } = require('mongodb');
+const uri = "mongodb+srv://classuser:cmps415class@ckmdb.5oxvqja.mongodb.net/?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
+});
+
+// --------<<< From Mongo
+
+
 // ------>>>Step 5.1
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
