@@ -50,10 +50,6 @@ app.get('/api/:version', function(req, res) {
 
 // ------Step 4// From: https://www.digitalocean.com/community/tutorials/use-expressjs-to-get-url-and-post-parameters
 
-const express = require('express');
-
-const app = express();
-const port = 3000;
 
 var fs = require("fs");
 
