@@ -12,6 +12,12 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes go here
 
+//Default route handler
+app.get('/', function(req, res, next){
+  res.send("You did not send me anything");
+});
+
+
 // A route with a parameter (access: URI/api/someVersionString)
 app.get('/api/paramData/:version', function(req, res) {
   res.send(req.params.version);
@@ -32,6 +38,7 @@ app.get('/api/users/:name', function(req, res) {
 
 
 // How to grab data from a query string (Form using GET)
+// May be accessed as /myGetStuff?mykey1=111&mykey2=222&mykey3=abcd
 app.get('/myGetStuff', function(req, res) {
   const myquery = req.query;
   
@@ -44,56 +51,5 @@ app.get('/myGetStuff', function(req, res) {
 });
 
 
-// -------------------------
-var url = require('url');
-app.get('api/myGetData', function(req, res) {
-  var thequery = url.parse(req.url, true).query;
- // const alldata = req.thequery;
-  const user_id = req.query.id;
-  const token = req.query.token;
-  const geo = req.query.geo;
-
-  res.send('alldata is: ' + alldata + ' from thequery: ' + thequery);
-  res.end({
-    'user_id': user_id,
-    'token': token,
-    'geo': geo
-  });
-});
-
-
-// How to grab data from a POST request (Form using POST)
-app.post('/api/users', function(req, res) {
-  const user_id = req.body.id;
-  const token = req.body.token;
-  const geo = req.body.geo;
-
-  res.send({
-    'user_id': user_id,
-    'token': token,
-    'geo': geo
-  });
-});
-
-
 app.listen(port);
 console.log('Server started at http://localhost:' + port);
-
-//----------->>> discard
-// How to grab data from a query string (Form using GET)
-var url = require('url');
-app.get('/api/myGetData2', function(req, res) {
-  var thequery = url.parse(req.url, true).query;
-  const alldata = req.query;
-  const user_id = req.query.id;
-  const token = req.query.token;
-  const geo = req.query.geo;
-
-  res.send(alldata + ' - ' + thequery);
-  res.send({
-    'user_id': user_id,
-    'token': token,
-    'geo': geo
-  });
-});
-
