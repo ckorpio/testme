@@ -4,25 +4,25 @@ const app = express();
 const port = 3000;
 
 
-// ------>>>Step 5.1
+// Middleware to handle jsons and URL encoded data
 // app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// ------<<<Step 5.1
 
 
-// routes will go here
+
+// Routes go here
 
 
-// ------Step 2
+// How to grab data from a query string (Form using GET)
 var url = require('url');
-app.get('/api/users', function(req, res) {
-  var qu = url.parse(req.url, true).query;
-  const evry = req.query;
+app.get('/api/myGetData', function(req, res) {
+  var thequery = url.parse(req.url, true).query;
+  const alldata = req.query;
   const user_id = req.query.id;
   const token = req.query.token;
   const geo = req.query.geo;
 
-  res.send(evry + ' - ' + qu);
+  res.send(alldata + ' - ' + thequery);
   res.send({
     'user_id': user_id,
     'token': token,
@@ -30,30 +30,26 @@ app.get('/api/users', function(req, res) {
   });
 });
 
-// ------Step 3
-
+// A route with a parameter (access: URI/api/someVersionString)
 app.get('/api/:version', function(req, res) {
   res.send(req.params.version);
 });
 
-// ------Step 4
+// Middleware applies to parameter 'name'
 app.param('name', function(req, res, next, name) {
   const modified = name.toUpperCase();
-
   req.name = modified;
   next();
 });
 
-// routes will go here
-// ...
 
+// A simple route using parameter 'name'
 app.get('/api/users/:name', function(req, res) {
   res.send('Hello ' + req.name + '!');
 });
 
 
-// ------>>>Step 5.2
-
+// How to grab data from a POST request (Form using POST)
 app.post('/api/users', function(req, res) {
   const user_id = req.body.id;
   const token = req.body.token;
@@ -65,7 +61,6 @@ app.post('/api/users', function(req, res) {
     'geo': geo
   });
 });
-// ------<<<Step 5.2
 
 
 app.listen(port);
