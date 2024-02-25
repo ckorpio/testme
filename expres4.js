@@ -21,15 +21,11 @@ app.get('/', function(req, res, next){
 
 //  How to grab data from a POST request
 app.post('/post/users', function(req, res) {
-  const user_id = req.body.id;
-  const token = req.body.token;
-  const geo = req.body.geo;
+  const formBody= req.body;
+  var outstring='';
+  for(var key in formBody) { outstring += "--" + key + ">" + formBody.key; }
 
-  res.send({
-    'user_id': user_id,
-    'token': token,
-    'geo': geo
-  });
+  res.send('The formBody is: ' + JSON.stringify(formBody) + '<br>The outstring is: ' + outstring);
 });
 
 
