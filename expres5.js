@@ -1,8 +1,8 @@
+// About cookies
 const express = require('express');
 const bodyParser=require('body-parser');
 const app = express();
 const port = 3000;
-var fs = require("fs");
 
 app.listen(port);
 console.log('Server started at http://localhost:' + port);
@@ -19,23 +19,22 @@ app.get('/', function(req, res, next){
 });
 
 
-//  How to grab data from a POST request
-app.post('/post/users', function(req, res) {
-  const formBody= req.body;
-  var outstring='';
-  for(var key in formBody) { outstring += "--" + key + ">" + formBody.key; }
-
-  res.send('The formBody is: ' + JSON.stringify(formBody) + '<br>The outstring is: ' + outstring);
+//  How to check a cookie
+app.post('/showcookie/:testcookie', function(req, res) {
+  var cookienam = req.params.testcookie
+  var cookie = req.cookies.cookienam;  // check if client sent cookie
+  if (cookie === undefined) { 
+    res.send('No such cookie has been set');
+  } else {
+    res.send('Cookie ' + cookienam +' has been set');
+  }
 });
 
 
-// Using a local file to generate a web form (like post.html)
-app.get("/getfile",function(req,res) {
-  fs.readFile('post.html','utf8',(err,data)=>{
-    console.log(data)
-    if(err){
-      res.send('some err occured ',err);
-    }
-    res.send(data);
-  })
-})
+//  How to set a cookie
+app.post('/setcookie/:testcookie', function(req, res) {
+  var cookienam = req.params.testcookie
+  var cookie = req.cookies.cookienam;  // check if client sent cookie
+  res.cookie(cookienam, 'cook12345', { maxAge: 180, httpOnly: true });
+  console.log('cookie created successfully');
+});
