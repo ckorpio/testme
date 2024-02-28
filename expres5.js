@@ -40,7 +40,7 @@ app.get('/report', function (req, res) {
 
   //Send the cookies report to the browser
   mycookies=req.cookies;
-  res.send(JSON.stringify(mycookies)  "Done reporting");
+  res.send(JSON.stringify(mycookies) + "Done reporting");
 });
 
 app.listen(3000)
