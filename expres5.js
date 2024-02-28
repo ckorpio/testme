@@ -1,40 +1,46 @@
-// About cookies
-const express = require('express');
-const bodyParser=require('body-parser');
-const app = express();
-const port = 3000;
+var express = require('express')
+var cookieParser = require('cookie-parser') //s1
 
-app.listen(port);
-console.log('Server started at http://localhost:' + port);
+var app = express();
+app.use(cookieParser()); //s2
 
-// Middleware to handle jsons and URL encoded data
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Routes go here
-
-//Default route handler
-app.get('/', function(req, res, next){
+// Default route
+app.get('/', function (req, res) {
   res.send("You did not send me anything");
 });
 
-
-//  How to check a cookie
-app.post('/showcookie/:testcookie', function(req, res) {
-  var cookienam = req.params.testcookie
-  var cookie = req.cookies.cookienam;  // check if client sent cookie
-  if (cookie === undefined) { 
-    res.send('No such cookie has been set');
-  } else {
-    res.send('Cookie ' + cookienam +' has been set');
-  }
+// Setting cookies
+app.get('/setcookie', function (req, res) {
+  console.log('setcookie');
+  res.cookie('name', 'Abcd') //Sets name = Abcd
+  res.cookie('cook2', 'xyz', {maxAge : 20000});  //Sets cook2 = xyz expiring in 20 seconds 
+  res.send('cookies set ');  // complete sending
 });
 
-
-//  How to set a cookie
-app.post('/setcookie/:testcookie', function(req, res) {
-  var cookienam = req.params.testcookie
-  var cookie = req.cookies.cookienam;  // check if client sent cookie
-  res.cookie(cookienam, 'cook12345', { maxAge: 180, httpOnly: true });
-  console.log('cookie created successfully');
+// Access and show cookies
+app.get('/showcookie', function (req, res) {
+  mycookies=req.cookies;
+  res.send(mycookies); //Send the cookies
+  //res.send("You did not send me anything");
 });
+
+// Clear a specific cookie (sent as parameter)
+app.get('/clearcookie/:cookiename', function (req, res) {
+  res.clearCookie(req.params.cookiename); //Shortcut for setting expiration in the past
+  res.send('Cookie deleted' + req.params.cookiename);
+});
+
+// Report cookies on console and browser
+app.get('/report', function (req, res) {
+  // Cookies that have not been signed
+  console.log('Cookies: ', req.cookies);
+
+  // Cookies that have been signed
+  console.log('Signed Cookies: ', req.signedCookies);
+
+  //Send the cookies report to the browser
+  mycookies=req.cookies;
+  res.send(JSON.stringify(mycookies)  "Done reporting");
+});
+
+app.listen(3000)
