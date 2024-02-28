@@ -1,8 +1,13 @@
 var express = require('express')
-var cookieParser = require('cookie-parser') //s1
+var cookieParser = require('cookie-parser') //needed for cookies
+// Make sure package.json contains:
+// "dependencies": {
+//    "express": "^4.18.2",
+//    "cookie-parser": "~1.4.4"
+//  }
 
 var app = express();
-app.use(cookieParser()); //s2
+app.use(cookieParser()); //needed for cookies
 
 // Default route
 app.get('/', function (req, res) {
@@ -12,8 +17,14 @@ app.get('/', function (req, res) {
 // Setting cookies
 app.get('/setcookie', function (req, res) {
   console.log('setcookie');
-  res.cookie('name', 'Abcd') //Sets name = Abcd
+  res.cookie('name', 'Abcd') //Sets name = Abcd, no expiration
   res.cookie('cook2', 'xyz', {maxAge : 20000});  //Sets cook2 = xyz expiring in 20 seconds 
+// Additional notes:
+// The following sets cook2 = xyz, no expiration, but prevents client-side script access to the cookie 
+// res.cookie('cook2', 'xyz', {HttpOnly: true});  //no expiration; prevents client-side script access  
+// The following sets cook2 = xyz expiring in 20 seconds and tells the browser to not allow client-side script access 
+// res.cookie('cook2', 'xyz', {HttpOnly: true, maxAge : 20000});  //expires; prevents client-side script access 
+
   res.send('cookies set ');  // complete sending
 });
 
@@ -21,7 +32,6 @@ app.get('/setcookie', function (req, res) {
 app.get('/showcookie', function (req, res) {
   mycookies=req.cookies;
   res.send(mycookies); //Send the cookies
-  //res.send("You did not send me anything");
 });
 
 // Clear a specific cookie (sent as parameter)
@@ -43,4 +53,11 @@ app.get('/report', function (req, res) {
   res.send(JSON.stringify(mycookies) + "Done reporting");
 });
 
-app.listen(3000)
+// The following is an alternative to just doing:
+// app.listen(3000)
+// Note the use of placeholders in reporting an output string
+var server = app.listen(3000, function () {
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('Example app listening at http://%s:%s', host, port);
+});
