@@ -20,8 +20,7 @@ app.get('/', function(req, res, next){
 
 
 
-// File system
-
+// Use the File system
 var fs = require("fs");
 
 
@@ -43,13 +42,11 @@ app.get('/wfile', function(req, res) {
   });
  
   res.send(outstring);
-
 });
 
 
 
-
-// ------>>>Step 5.2
+// How to grab data from a POST request
 
 app.post('/post/users', function(req, res) {
   const user_id = req.body.id;
