@@ -11,7 +11,8 @@
     "start": "node expres4.js"
   },
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",    
+    "cookie-parser"
   },
   "engines": {
     "node": ">=14"
