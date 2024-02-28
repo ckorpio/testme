@@ -50,14 +50,15 @@ app.get('/report', function (req, res) {
 
   //Send the cookies report to the browser
   mycookies=req.cookies;
-  res.send(JSON.stringify(mycookies) + "Done reporting");
+  res.send(JSON.stringify(mycookies) + " --Done reporting");
 });
 
 // The following is an alternative to just doing:
 // app.listen(3000)
 // Note the use of placeholders in reporting an output string
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Example app listening at http://%s:%s', host, port);
-});
+ var server = app.listen(3000, function () {
+   var host = server.address().address;
+   var port = server.address().port;
+   console.log('app listening at %s : %s', host, port);
+ });
+
