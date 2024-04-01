@@ -7,7 +7,7 @@ mynode.js: Basic web listening app
 <br>
 demo.js:  Basic node program showing binding of events and handlers
 <br>
-expres.js:  Basic routes and middleware
+expres.js:  Basic routes and middleware. Also demo of res.send vs collecting messages to send after completing a chain  of functions.
 <br>
 expres2.js:  Added 'how to grab data from a query string (GET request)"
 <br>
